@@ -1,6 +1,6 @@
 # Stage 1: Build the application
 # We use a Maven image to build the project from source
-FROM maven:3.9-eclipse-temurin-17-alpine AS build
+FROM maven:3.9-eclipse-temurin-17 AS build
 WORKDIR /app
 
 # Copy the pom.xml and source code
@@ -14,7 +14,7 @@ RUN chmod +x mvnw && ./mvnw clean package -DskipTests
 
 # Stage 2: Run the application
 # We use a lightweight JRE image for the final container
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:17-jre
 WORKDIR /app
 
 # Copy the jar file from the build stage
