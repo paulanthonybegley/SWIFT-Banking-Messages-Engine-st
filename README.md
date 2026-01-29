@@ -19,13 +19,18 @@ Professional SWIFT Banking Messages Toolkit with a modern Spring Boot + Thymelea
 - **MT940** - Customer Statement Message
 - **MT942** - Interim Transaction Report
 
-## 🚀 Quick Start
+### Deployment (Docker & Render.com)
 
-The easiest way to build and run the application is using the provided `Makefile`.
+This project is configured for easy deployment to **Render.com** (or any Docker-capable host) using a multi-stage `Dockerfile`.
 
-### Prerequisites
-- Java 17 or higher
-- Maven (included as `./mvnw`)
+1. **GitHub Integration**: Push your code to a GitHub repository.
+2. **New Web Service**: In Render, select **New > Web Service**.
+3. **Select Repository**: Pick your repository.
+4. **Environment**: Select **Docker** as the runtime.
+5. **Deploy**: Render will build the image using the `Dockerfile` and start the service on port 8080.
+
+### Local Development
+... existing Quick Start ...
 
 ### Commands
 
