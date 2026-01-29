@@ -6,11 +6,9 @@ WORKDIR /app
 # Copy the pom.xml and source code
 COPY pom.xml .
 COPY src ./src
-COPY .mvn ./.mvn
-COPY mvnw ./mvnw
 
-# Fix line endings for mvnw in case of development on Windows
-RUN chmod +x mvnw && ./mvnw clean package -DskipTests
+# Build the application using the pre-installed Maven
+RUN mvn clean package -DskipTests
 
 # Stage 2: Run the application
 # We use a lightweight JRE image for the final container
