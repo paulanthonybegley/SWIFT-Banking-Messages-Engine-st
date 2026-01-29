@@ -1,3 +1,0 @@
-SWIFT Banking Messages application configured successfully
-Application should be deployed to a servlet container or embedded server
-To test with embedded development server, use: java -jar target/banking-swift-messages-0.0.0-SNAPSHOT.jar
