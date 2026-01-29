@@ -1,79 +1,8 @@
-#!/bin/bash
+# Build application
+./start.sh build
 
-# SWIFT Banking Messages - Startup Script
-# This script helps build and run the Vaadin web application
-# Follows best practices: creates fat JAR for easy execution
+# Run web application (development mode)
+./start.sh run
 
-echo "🏦 SWIFT Banking Messages - Professional Web Interface"
-echo "======================================================"
-
-# Use Maven wrapper for consistent builds
-if [ ! -f "./mvnw" ]; then
-    echo "❌ Maven wrapper (mvnw) not found"
-    echo "Please ensure script is run from project root directory"
-    exit 1
-fi
-
-# Check Java version
-if ! command -v java &> /dev/null; then
-    echo "❌ Java is not installed or not in PATH"
-    echo "Please install Java 17+ and add it to your PATH"
-    exit 1
-fi
-
-# Build options
-case "${1:-build}" in
-    "build")
-        echo "🔨 Building application..."
-        ./mvnw clean package -DskipTests
-        echo "✅ Build completed successfully"
-        echo "📦 Fat JAR created: target/banking-swift-messages-0.0.0-SNAPSHOT.jar"
-        ;;
-    "run")
-        echo "🚀 Starting web application..."
-        echo "📖 Open http://localhost:8080 in your browser"
-        echo "⏹️  Press Ctrl+C to stop the server"
-        echo ""
-        if [ -f "target/banking-swift-messages-0.0.0-SNAPSHOT.jar" ]; then
-            java -jar target/banking-swift-messages-0.0.0-SNAPSHOT.jar
-        else
-            echo "❌ JAR file not found. Please run './start.sh build' first."
-        fi
-        ;;
-    "test")
-        echo "🧪 Running tests..."
-        ./mvnw test
-        ;;
-    "clean")
-        echo "🧹 Cleaning build artifacts..."
-        ./mvnw clean
-        ;;
-    "dev")
-        echo "🛠️  Starting development server with auto-reload..."
-        echo "🌐 Application will be available at: http://localhost:8080"
-        echo "⏹️  Press Ctrl+C to stop the server"
-        echo ""
-        ./mvnw vaadin:prepare-frontend && ./mvnw jetty:run -Djetty.scanIntervalSeconds=2
-        ;;
-    "help"|"-h"|"--help")
-        echo "Usage: $0 [command]"
-        echo ""
-        echo "Commands:"
-        echo "  build      - Build fat JAR (default)"
-        echo "  run        - Run: web application"
-        echo "  test       - Run all tests"
-        echo "  clean      - Clean build artifacts"
-        echo "  help       - Show this help message"
-        echo ""
-        echo "Examples:"
-        echo "  $0                # Build the application"
-        echo "  $0 run            # Build and run the application"
-        echo "  $0 test           # Run tests"
-        echo "  $0 clean          # Clean build artifacts"
-        ;;
-    *)
-        echo "❌ Unknown command: $1"
-        echo "Run '$0 help' for usage information"
-        exit 1
-        ;;
-esac
+# Run web application (simple startup for debugging)
+./simple-start.sh

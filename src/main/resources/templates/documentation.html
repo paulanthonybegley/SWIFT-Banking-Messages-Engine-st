@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout :: html(title='SWIFT Documentation', content=~{::content})}">
+
+<body th:fragment="content">
+    <div class="documentation-section">
+        <h2>SWIFT Message Documentation</h2>
+        <p class="documentation-description">
+            Complete guide to SWIFT banking message formats and field specifications.
+        </p>
+
+        <div class="doc-nav">
+            <button class="nav-btn active" onclick="showSection('mt940')">MT940</button>
+            <button class="nav-btn" onclick="showSection('mt942')">MT942</button>
+            <button class="nav-btn" onclick="showSection('mt101')">MT101</button>
+            <button class="nav-btn" onclick="showSection('mt103')">MT103</button>
+            <button class="nav-btn" onclick="showSection('examples')">Examples</button>
+        </div>
+
+        <div id="mt940" class="doc-section active">
+            <h3>MT940 - Customer Statement Message</h3>
+            <p class="doc-overview">
+                MT940 is used to send customer statement messages that list debits and credits to a customer's account.
+            </p>
+
+            <div class="field-reference">
+                <h4>Required Fields</h4>
+                <table class="field-table">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Description</th>
+                            <th>Format</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>:20:</td>
+                            <td>Transaction Reference</td>
+                            <td>16x</td>
+                            <td>REFERENCE123</td>
+                        </tr>
+                        <tr>
+                            <td>:25:</td>
+                            <td>Account Identification</td>
+                            <td>35x</td>
+                            <td>123456789</td>
+                        </tr>
+                        <tr>
+                            <td>:28C:</td>
+                            <td>Statement Number/Sequence</td>
+                            <td>5n[/5n]</td>
+                            <td>12345/1</td>
+                        </tr>
+                        <tr>
+                            <td>:60F:</td>
+                            <td>Opening Balance</td>
+                            <td>1!a6!n3!n15d</td>
+                            <td>C160101EUR1000,00</td>
+                        </tr>
+                        <tr>
+                            <td>:62F:</td>
+                            <td>Closing Balance</td>
+                            <td>1!a6!n3!n15d</td>
+                            <td>C160101EUR1100,00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="field-reference">
+                <h4>Optional Fields</h4>
+                <table class="field-table">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Description</th>
+                            <th>Format</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>:61:</td>
+                            <td>Statement Line</td>
+                            <td>Various</td>
+                        </tr>
+                        <tr>
+                            <td>:64:</td>
+                            <td>Closing Available Balance</td>
+                            <td>1!a6!n3!n15d</td>
+                        </tr>
+                        <tr>
+                            <td>:86:</td>
+                            <td>Information to Account Owner</td>
+                            <td>6*65x</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="mt942" class="doc-section">
+            <h3>MT942 - Interim Transaction Report</h3>
+            <p class="doc-overview">
+                MT942 provides interim transaction information between full statement periods.
+            </p>
+            <div class="note">
+                <i class="fas fa-info-circle"></i>
+                <p>MT942 uses the same field structure as MT940 but is used for interim reporting.</p>
+            </div>
+        </div>
+
+        <div id="mt101" class="doc-section">
+            <h3>MT101 - General Financial Institution Transfer</h3>
+            <p class="doc-overview">
+                MT101 is used for direct financial institution transfers and payment orders.
+            </p>
+
+            <div class="field-reference">
+                <h4>Key Fields</h4>
+                <table class="field-table">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Description</th>
+                            <th>Format</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>:20:</td>
+                            <td>Transaction Reference</td>
+                            <td>16x</td>
+                        </tr>
+                        <tr>
+                            <td>:32A:</td>
+                            <td>Original Date/Amount</td>
+                            <td>6!n4!n1!a15d</td>
+                        </tr>
+                        <tr>
+                            <td>:50K:</td>
+                            <td>Ordering Customer</td>
+                            <td>6*35x</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="mt103" class="doc-section">
+            <h3>MT103 - Single Customer Credit Transfer</h3>
+            <p class="doc-overview">
+                MT103 is a SWIFT payment message used for cross-border/international wire transfers.
+            </p>
+
+            <div class="field-reference">
+                <h4>Mandatory Fields</h4>
+                <table class="field-table">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Description</th>
+                            <th>Format</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>:20:</td>
+                            <td>Transaction Reference</td>
+                            <td>16x</td>
+                        </tr>
+                        <tr>
+                            <td>:23B:</td>
+                            <td>Bank Operation Code</td>
+                            <td>4!c (CRED, SPAY, etc)</td>
+                        </tr>
+                        <tr>
+                            <td>:32A:</td>
+                            <td>Value Date/Currency/Amount</td>
+                            <td>6!n3!a15d</td>
+                        </tr>
+                        <tr>
+                            <td>:50K:</td>
+                            <td>Ordering Customer</td>
+                            <td>4*35x</td>
+                        </tr>
+                        <tr>
+                            <td>:59:</td>
+                            <td>Beneficiary Customer</td>
+                            <td>4*35x</td>
+                        </tr>
+                        <tr>
+                            <td>:71A:</td>
+                            <td>Details of Charges</td>
+                            <td>3!a (OUR, BEN, SHA)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="examples" class="doc-section">
+            <h3>Message Examples</h3>
+
+            <div class="example-section">
+                <h4>MT940 Example</h4>
+                <pre class="code-example">{1:F01BANKDEFFXXXX0000000000}{2:I940BANKDEFFXXXXN}{3:{108:TEST123456789}}{4:
+:20:REFERENCE123
+:25:12345678
+:28C:12345/1
+:60F:C160101EUR1000,00
+:61:160101C100,00NDUM001
+:62F:C160101EUR1100,00
+-}</pre>
+            </div>
+
+            <div class="example-section">
+                <h4>MT101 Example</h4>
+                <pre class="code-example">{1:F01BANKDEFFXXXX0000000000}{2:I101BANKDEFIXXXXN}{3:{108:TEST123456789}}{4:
+:20:TRANSFER001
+:23:E
+:32A:160101EUR1000,00
+:50K:/NAME/John Doe
+/ADDR1/123 Main Street
+/ADDR2/New York NY 10001
+:COUNTRY/US
+-}</pre>
+            </div>
+            <div class="example-section">
+                <h4>MT103 Example</h4>
+                <pre class="code-example">{1:F01BANKDEFFXXXX0000000000}{2:I103BANKDEFFXXXXN}{3:{108:TEST103}}{4:
+:20:PAYMENT103
+:23B:CRED
+:32A:240101EUR5000,00
+:50K:/12345678
+John Doe
+123 Main St
+New York
+:59:/87654321
+Jane Smith
+456 High St
+London
+:71A:SHA
+-}</pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.doc-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

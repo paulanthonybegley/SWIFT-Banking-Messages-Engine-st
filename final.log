@@ -1,0 +1,28 @@
+🏦 SWIFT Banking Messages - Professional Web Interface
+======================================================
+🚀 Starting web application...
+📖 Open http://localhost:8080 in your browser
+⏹️  Press Ctrl+C to stop the server
+
+🚀 Starting SWIFT Banking Messages web application...
+[main] INFO org.eclipse.jetty.server.Server - jetty-12.0.12; built: 2024-07-25T21:58:37.668Z; git: cc6f1b74db755fed228b50701ad967aeaa68e83f; jvm 17.0.14+1-b1367.22
+[main] WARN org.eclipse.jetty.ee10.webapp.WebAppContext - Failed startup of context oeje10w.WebAppContext@64485a47{ROOT,/,b=null,a=STOPPED,h=oeje10s.SessionHandler@25bbf683{STOPPED}}
+java.lang.IllegalStateException: No resourceBase or war set for context
+	at org.eclipse.jetty.ee10.webapp.WebInfConfiguration.unpack(WebInfConfiguration.java:169)
+	at org.eclipse.jetty.ee10.webapp.WebInfConfiguration.preConfigure(WebInfConfiguration.java:65)
+	at org.eclipse.jetty.ee10.webapp.Configurations.preConfigure(Configurations.java:487)
+	at org.eclipse.jetty.ee10.webapp.WebAppContext.preConfigure(WebAppContext.java:457)
+	at org.eclipse.jetty.ee10.webapp.WebAppContext.doStart(WebAppContext.java:498)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.server.Server.start(Server.java:624)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:565)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at com.qoomon.banking.swift.ui.Application.main(Application.java:37)
+[main] INFO org.eclipse.jetty.server.Server - Started oejs.Server@64bfbc86{STARTING}[12.0.12,sto=0] @213ms
+✅ SWIFT Banking Messages application started successfully!
+❌ Failed to start application: Cannot invoke "java.net.URI.getPort()" because the return value of "org.eclipse.jetty.server.Server.getURI()" is null
+java.lang.NullPointerException: Cannot invoke "java.net.URI.getPort()" because the return value of "org.eclipse.jetty.server.Server.getURI()" is null
+	at com.qoomon.banking.swift.ui.Application.main(Application.java:39)

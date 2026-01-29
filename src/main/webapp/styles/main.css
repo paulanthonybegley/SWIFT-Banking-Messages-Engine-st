@@ -1,0 +1,51 @@
+/* Main application styles */
+.main-layout {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.home-view {
+    padding: 2rem;
+    text-align: center;
+}
+
+.welcome-section {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.description-section {
+    font-size: 1rem;
+    color: #7f8c8d;
+    margin-bottom: 2rem;
+    max-width: 600px;
+}
+
+.quick-actions {
+    margin-top: 2rem;
+}
+
+.action-buttons {
+    gap: 1rem;
+    justify-content: center;
+}
+
+.action-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.action-button:hover {
+    background-color: #2980b9;
+}
+
+.content-container {
+    padding: 1rem;
+}

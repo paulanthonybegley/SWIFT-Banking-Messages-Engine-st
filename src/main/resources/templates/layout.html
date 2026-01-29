@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="html(title, content)">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">SWIFT Banking Messages</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="/" class="logo">
+                <i class="fas fa-university fa-lg"></i>
+                <h1>SWIFT Banking</h1>
+            </a>
+            <nav class="nav-menu">
+                <a href="/" class="nav-link" th:classappend="${currentPage == 'home' ? 'active' : ''}">
+                    <i class="fas fa-th-large"></i> Dashboard
+                </a>
+                <a href="/parser" class="nav-link" th:classappend="${currentPage == 'parser' ? 'active' : ''}">
+                    <i class="fas fa-terminal"></i> Parser
+                </a>
+                <a href="/composer" class="nav-link" th:classappend="${currentPage == 'composer' ? 'active' : ''}">
+                    <i class="fas fa-pen-nib"></i> Composer
+                </a>
+                <a href="/validator" class="nav-link" th:classappend="${currentPage == 'validator' ? 'active' : ''}">
+                    <i class="fas fa-shield-check"></i> Validator
+                </a>
+                <a href="/documentation" class="nav-link"
+                    th:classappend="${currentPage == 'documentation' ? 'active' : ''}">
+                    <i class="fas fa-book"></i> Docs
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div th:replace="${content}"></div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 SWIFT Banking Messages. Professional Financial Interface.</p>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+
+</html>
