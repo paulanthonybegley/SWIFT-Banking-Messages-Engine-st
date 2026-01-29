@@ -20,7 +20,7 @@
         <archetype.encoding>UTF-8</archetype.encoding>
 
         <!-- Vaadin properties -->
-        <vaadin.version>24.4.6</vaadin.version>
+        <vaadin.version>25.0.4</vaadin.version>
         <jetty.version>12.0.12</jetty.version>
 
     </properties>
