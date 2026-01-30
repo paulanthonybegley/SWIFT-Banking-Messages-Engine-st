@@ -51,6 +51,8 @@ public class ValidatorController {
             validateMT101(message, result);
         } else if (result.getMessageType().equals("MT103")) {
             validateMT103(message, result);
+        } else if (result.getMessageType().equals("MT104")) {
+            validateMT104(message, result);
         }
 
         return result;
@@ -65,6 +67,8 @@ public class ValidatorController {
             return "MT101";
         if (message.contains("{2:I103") || message.contains("{2:O103") || message.contains(":103:"))
             return "MT103";
+        if (message.contains("{2:I104") || message.contains("{2:O104") || message.contains(":104:"))
+            return "MT104";
         return "Unknown";
     }
 
@@ -126,6 +130,25 @@ public class ValidatorController {
         if (!message.contains(":71A:")) {
             result.setValid(false);
             result.addError("Missing required field :71A: (Details of Charges)");
+        }
+    }
+
+    private void validateMT104(String message, ValidationResult result) {
+        if (!message.contains(":20:")) {
+            result.setValid(false);
+            result.addError("Missing required field :20: (Transaction Reference)");
+        }
+        if (!message.contains(":30G:")) {
+            result.setValid(false);
+            result.addError("Missing required field :30G: (Requested Value Date)");
+        }
+        if (!message.contains(":21:")) {
+            result.setValid(false);
+            result.addError("Missing required field :21: (Transaction Reference in Sequence B)");
+        }
+        if (!message.contains(":32B:")) {
+            result.setValid(false);
+            result.addError("Missing required field :32B: (Currency/Amount)");
         }
     }
 
