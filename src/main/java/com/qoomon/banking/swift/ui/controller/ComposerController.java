@@ -88,6 +88,24 @@ public class ComposerController {
                 message.append("}");
                 break;
 
+            case "MT104":
+                message.append("{4:\n");
+                // Sequence A - General Information
+                message.append(":20:").append(ref).append("\n");
+                message.append(":30G:").append(details.split("/")[0]).append("\n"); // Assume format Date/Ref in details
+                                                                                    // for simplicity
+
+                // Sequence B - Individual Transaction (Simple version for demo)
+                message.append(":21:").append(ref).append("-TR\n");
+                message.append(":32B:").append(balance).append("\n"); // Assume balance input is ISO Currency + Amount
+                message.append(":50K:").append(account).append("\n");
+
+                // Sequence C - Settlement Details
+                message.append(":19:").append(balance.replaceAll("[^0-9,.]", "")).append("\n");
+                message.append(":30:").append(details.split("/")[0]).append("\n");
+                message.append("}");
+                break;
+
             default:
                 throw new IllegalArgumentException("Unsupported message type: " + messageType);
         }

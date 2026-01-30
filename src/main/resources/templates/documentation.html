@@ -14,6 +14,7 @@
             <button class="nav-btn" onclick="showSection('mt942')">MT942</button>
             <button class="nav-btn" onclick="showSection('mt101')">MT101</button>
             <button class="nav-btn" onclick="showSection('mt103')">MT103</button>
+            <button class="nav-btn" onclick="showSection('mt104')">MT104</button>
             <button class="nav-btn" onclick="showSection('examples')">Examples</button>
         </div>
 
@@ -194,6 +195,70 @@
                             <td>:71A:</td>
                             <td>Details of Charges</td>
                             <td>3!a (OUR, BEN, SHA)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="mt104" class="doc-section">
+            <h3>MT104 - Direct Debit and Request for Debit Transfer</h3>
+            <p class="doc-overview">
+                MT104 is used for direct debit collections between financial institutions, supporting Straight-Through
+                Processing (STP).
+            </p>
+
+            <div class="field-reference">
+                <h4>Sequence Structure</h4>
+                <div style="margin-bottom: 1rem;">
+                    <strong>Sequence A:</strong> General Information (Mandatory)<br>
+                    <strong>Sequence B:</strong> Individual Transactions (Mandatory, repetitive)<br>
+                    <strong>Sequence C:</strong> Settlement Details (Mandatory for direct debits)
+                </div>
+
+                <table class="field-table">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Description</th>
+                            <th>Sequence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>:20:</td>
+                            <td>Transaction Reference Number</td>
+                            <td>A</td>
+                        </tr>
+                        <tr>
+                            <td>:30G:</td>
+                            <td>Requested Value Date</td>
+                            <td>A</td>
+                        </tr>
+                        <tr>
+                            <td>:21:</td>
+                            <td>Transaction Reference Number</td>
+                            <td>B</td>
+                        </tr>
+                        <tr>
+                            <td>:32B:</td>
+                            <td>Currency/Amount</td>
+                            <td>B</td>
+                        </tr>
+                        <tr>
+                            <td>:50K:</td>
+                            <td>Ordering Customer (Creditor)</td>
+                            <td>B</td>
+                        </tr>
+                        <tr>
+                            <td>:19:</td>
+                            <td>Total Amount</td>
+                            <td>C</td>
+                        </tr>
+                        <tr>
+                            <td>:30:</td>
+                            <td>Requested Execution Date</td>
+                            <td>C</td>
                         </tr>
                     </tbody>
                 </table>

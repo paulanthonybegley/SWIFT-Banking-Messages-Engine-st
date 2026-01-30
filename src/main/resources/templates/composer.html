@@ -45,6 +45,7 @@
                             <option value="MT942">MT942 - Interim Transaction Report</option>
                             <option value="MT101">MT101 - General Financial Transfer</option>
                             <option value="MT103">MT103 - Single Customer Credit Transfer</option>
+                            <option value="MT104">MT104 - Direct Debit Message</option>
                         </select>
                     </div>
 
@@ -69,17 +70,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="openingBalance" class="form-label">Opening Balance/Amount (:60F:/:32A:)</label>
+                        <label for="openingBalance" class="form-label">Balance/Amount (:60F:/:32A:/:32B:)</label>
                         <input type="text" id="openingBalance" name="openingBalance" class="form-input"
-                            placeholder="C240101EUR1500,00" required>
+                            placeholder="e.g. C240101EUR1500,00 or EUR1500,00" required>
                     </div>
                 </div>
             </div>
 
             <div class="form-group" style="margin-top: 1rem;">
-                <label for="transactionDetails" class="form-label">Transaction Details / Narrative (:61:/:86:)</label>
+                <label for="transactionDetails" class="form-label">Narrative / Dates (:61:/:86:/:30G:)</label>
                 <textarea id="transactionDetails" name="transactionDetails" class="form-textarea" rows="3"
-                    placeholder="Enter transaction specifics..."></textarea>
+                    placeholder="Enter transaction specifics or MT104 Date/Ref..."></textarea>
             </div>
 
             <div class="action-buttons"

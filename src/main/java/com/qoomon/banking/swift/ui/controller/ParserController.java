@@ -74,6 +74,8 @@ public class ParserController {
             return "MT101";
         if (message.contains("{2:I103") || message.contains("{2:O103") || message.contains(":103:"))
             return "MT103";
+        if (message.contains("{2:I104") || message.contains("{2:O104") || message.contains(":104:"))
+            return "MT104";
         return "Unknown";
     }
 
@@ -126,6 +128,16 @@ public class ParserController {
                 return "Details of Charges";
             case ":70:":
                 return "Remittance Information";
+            case ":21:":
+                return "Transaction Reference";
+            case ":30G:":
+                return "Requested Value Date";
+            case ":32B:":
+                return "Currency/Transaction Amount";
+            case ":19:":
+                return "Total Amount of Transactions";
+            case ":30:":
+                return "Requested Execution Date";
             default:
                 return "Field " + tag;
         }
