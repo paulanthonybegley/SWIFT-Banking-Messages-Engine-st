@@ -18,8 +18,8 @@ WORKDIR /app
 # Copy the jar file from the build stage
 COPY --from=build /app/target/*.jar app.jar
 
-# Expose the standard Spring Boot port
+# Expose the standard Spring Boot port (usually overridden by PORT env var)
 EXPOSE 8080
 
-# Execute the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Execute the application with memory optimization for small instances (e.g., Koyeb 512MB)
+ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -Xmx384m -jar app.jar"]
