@@ -8,7 +8,7 @@
 The **SWIFT Banking Messages Engine** is a professional-grade web toolkit for parsing, validating, and composing SWIFT MT financial messages. It was transitioned from a legacy Vite/Vaadin setup to a lean, high-performance **Spring Boot + Thymeleaf** architecture to ensure better maintainability and lower resource consumption.
 
 ### Core Goals:
-- **Precision**: Strict adherence to SWIFT message formats (MT101, MT103, MT940, MT942).
+- **Precision**: Strict adherence to SWIFT message formats (MT101, MT103, MT104, MT940, MT942).
 - **Usability**: Professional dark-themed UI with interactive documentation.
 - **Portability**: Containerized with Docker for seamless deployment to "zero-card" free tiers (Koyeb, Hugging Face).
 
@@ -54,9 +54,10 @@ Messages are parsed by identifying headers first.
 - **Data Tables**: Extracted fields are mapped into Spring Model attributes and displayed using Thymeleaf loops.
 
 ### 2. Message Composition (`ComposerController`)
-Currently optimized for **MT103** (Single Customer Credit Transfer).
+Currently supports **MT103** (Credit Transfer), **MT101** (Financial Transfer), and **MT104** (Direct Debit).
 - **Headers**: Automatically generates standard Block 1, 2, and 3 headers.
-- **Fields**: Handles specific SWIFT fields like `20` (Reference), `32A` (Amount/Currency/Date), and `50A/59` (Ordering/Beneficiary customers).
+- **Sequence Handling**: For MT104, uses a simplified A-B-C sequence structure in the final output.
+- **Fields**: Handles specific SWIFT fields like `20` (Reference), `32A/32B` (Amount), and customer identification.
 
 ### 3. Design System (`main.css`)
 A custom-built dark theme. Key tokens:
