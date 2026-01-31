@@ -58,11 +58,21 @@ public class ParserController {
             }
         }
 
+        boolean hasErrors = false;
+        for (ParsedField field : fields) {
+            if (!field.isValid()) {
+                hasErrors = true;
+                break;
+            }
+        }
+
         result.setFields(fields);
         result.setFieldCount(fields.size());
 
         if (fields.isEmpty()) {
             result.setStatus("Invalid - No valid SWIFT fields found");
+        } else if (hasErrors) {
+            result.setStatus("Invalid - Message contains malformed fields");
         } else {
             result.setStatus("Valid");
         }
@@ -95,13 +105,19 @@ public class ParserController {
 
         // Validate SWIFT field tag format before accepting
         if (!isValidSwiftFieldTag(tag)) {
-            return null; // Skip invalid field tags
+            ParsedField field = new ParsedField();
+            field.setTag(tag);
+            field.setValue(value);
+            field.setName("Invalid Tag Format");
+            field.setValid(false);
+            return field;
         }
 
         ParsedField field = new ParsedField();
         field.setTag(tag);
         field.setValue(value);
         field.setName(getFieldName(tag));
+        field.setValid(true);
 
         return field;
     }
@@ -204,6 +220,7 @@ public class ParserController {
         private String tag;
         private String name;
         private String value;
+        private boolean valid = true;
 
         // Getters and setters
         public String getTag() {
@@ -228,6 +245,14 @@ public class ParserController {
 
         public void setValue(String value) {
             this.value = value;
+        }
+
+        public boolean isValid() {
+            return valid;
+        }
+
+        public void setValid(boolean valid) {
+            this.valid = valid;
         }
     }
 }
