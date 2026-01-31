@@ -88,12 +88,23 @@ public class ParserController {
         String tag = line.substring(0, colonIndex + 1);
         String value = line.substring(colonIndex + 1);
 
+        // Validate SWIFT field tag format before accepting
+        if (!isValidSwiftFieldTag(tag)) {
+            return null; // Skip invalid field tags
+        }
+
         ParsedField field = new ParsedField();
         field.setTag(tag);
         field.setValue(value);
         field.setName(getFieldName(tag));
 
         return field;
+    }
+
+    private boolean isValidSwiftFieldTag(String tag) {
+        // SWIFT field tags: :NN: or :NNN: or :NNL: (2-3 digits, optional letter)
+        // Examples: :20:, :60F:, :62M:, :940:
+        return tag.matches("^:\\d{2,3}[A-Z]?:$");
     }
 
     private String getFieldName(String tag) {
