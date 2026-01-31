@@ -60,7 +60,12 @@ public class ParserController {
 
         result.setFields(fields);
         result.setFieldCount(fields.size());
-        result.setStatus("Valid");
+
+        if (fields.isEmpty()) {
+            result.setStatus("Invalid - No valid SWIFT fields found");
+        } else {
+            result.setStatus("Valid");
+        }
 
         return result;
     }
