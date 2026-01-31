@@ -100,9 +100,36 @@ public class ValidatorController {
     }
 
     private void validateMT101(String message, ValidationResult result) {
+        // Sequence A - General Information (Mandatory)
         if (!message.contains(":20:")) {
             result.setValid(false);
-            result.addError("Missing required field :20: (Transaction Reference)");
+            result.addError("Missing required field :20: (Sender's Reference)");
+        }
+        if (!message.contains(":28D:")) {
+            result.setValid(false);
+            result.addError("Missing required field :28D: (Message Index/Total)");
+        }
+        if (!message.contains(":30:")) {
+            result.setValid(false);
+            result.addError("Missing required field :30: (Requested Execution Date)");
+        }
+
+        // Sequence B - Transaction Details (Mandatory, at least one occurrence)
+        if (!message.contains(":21:")) {
+            result.setValid(false);
+            result.addError("Missing required field :21: (Transaction Reference)");
+        }
+        if (!message.contains(":32B:")) {
+            result.setValid(false);
+            result.addError("Missing required field :32B: (Currency/Transaction Amount)");
+        }
+        if (!message.contains(":59:") && !message.contains(":59A:")) {
+            result.setValid(false);
+            result.addError("Missing required field :59: or :59A: (Beneficiary Customer)");
+        }
+        if (!message.contains(":71A:")) {
+            result.setValid(false);
+            result.addError("Missing required field :71A: (Details of Charges)");
         }
     }
 
