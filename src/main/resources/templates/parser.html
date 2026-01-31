@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout :: html(title='SWIFT Parser', content=~{::content})}">
+
+<body th:fragment="content">
+    <div class="parser-section">
+        <h2>SWIFT Message Parser</h2>
+        <p class="description">
+            Upload or paste your SWIFT message below to parse and validate its content. Our parser supports MT101,
+            MT103, MT940, and other common formats.
+        </p>
+
+        <form method="post" action="/parser" class="parser-form">
+            <div class="form-group">
+                <label for="messageInput" class="form-label">Raw SWIFT Message Content</label>
+                <textarea id="messageInput" name="message" class="form-textarea" rows="12"
+                    placeholder="Paste your SWIFT message (including headers) here..." th:text="${message}"></textarea>
+            </div>
+
+            <div class="action-buttons">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-play"></i> Parse Message
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="clearInput()">
+                    <i class="fas fa-eraser"></i> Clear
+                </button>
+                <button type="button" class="btn btn-info" onclick="loadSample()">
+                    <i class="fas fa-file-code"></i> Load Sample
+                </button>
+            </div>
+        </form>
+
+        <div th:if="${error}" class="error-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span th:text="${error}"></span>
+        </div>
+
+        <div th:if="${result}" class="result-section">
+            <h3>Parse Analysis</h3>
+
+            <div class="result-container" style="display: grid; grid-template-columns: 350px 1fr; gap: 2rem;">
+                <!-- Summary Sidebar -->
+                <div class="result-summary"
+                    style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 8px;">
+                    <h4
+                        style="margin-bottom: 1.5rem; font-size: 1.1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+                        Message Metadata</h4>
+                    <div class="info-list">
+                        <div class="info-item" style="margin-bottom: 1rem;">
+                            <label
+                                style="display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Message
+                                Type</label>
+                            <span style="font-weight: 600; font-size: 1.25rem; color: var(--primary-color);"
+                                th:text="${result.messageType}">N/A</span>
+                        </div>
+                        <div class="info-item" style="margin-bottom: 1rem;">
+                            <label
+                                style="display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Field
+                                Count</label>
+                            <span style="font-weight: 500;" th:text="${result.fieldCount}">0</span>
+                        </div>
+                        <div class="info-item">
+                            <label
+                                style="display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Validation
+                                Status</label>
+                            <span th:class="${result.status == 'Valid' ? 'success-text' : 'error-text'}"
+                                style="font-weight: 600;" th:text="${result.status}">Valid</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fields List -->
+                <div class="parsed-fields">
+                    <h4 style="margin-bottom: 1.5rem; font-size: 1.1rem;">Extracted Fields</h4>
+                    <div class="fields-grid" style="display: grid; gap: 0.75rem;">
+                        <div th:each="field : ${result.fields}" class="field-card"
+                            style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 1rem; border-radius: 6px;">
+                            <div class="field-header"
+                                style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="font-family: 'JetBrains Mono'; font-weight: 600; color: var(--info-color);"
+                                    th:text="${field.tag}">:20:</span>
+                                <span style="font-size: 0.8rem; color: var(--text-muted); font-style: italic;"
+                                    th:text="${field.name}">Reference</span>
+                            </div>
+                            <div class="field-value"
+                                style="font-family: 'JetBrains Mono'; border-left: 2px solid var(--primary-color); padding-left: 0.75rem; color: var(--text-main);"
+                                th:text="${field.value}">Value</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
